@@ -17,11 +17,21 @@ enum Region {
 
 model Book {
     fields {
-        isbn8 Text
-        isbn13 Text
-        name Text
-        author Author
-        published Date
+        isbn Text
+        name Text?
+        author Author?
+        published Date?
+        rc Identity
+    }
+
+    operations {
+        get book(id)
+        list allBooks()
+        delete deleteBook(id)
+        update updateBook(id) with (isbn?, author.id?, published, name?)
+        create createBook() with (isbn, author.id?, published, name?) {
+            @set(book.owner = ctx.identity)
+        }
     }
 }
 
