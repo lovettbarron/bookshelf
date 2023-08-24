@@ -1,0 +1,9 @@
+model Book {
+    fields {
+        isbn8 Text
+        isbn13 Text
+        name Text
+        author Author
+        published Date
+    }
+}
