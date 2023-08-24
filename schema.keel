@@ -49,6 +49,11 @@ model Book {
     }
 
     @permission(
+        expression: ctx.isAuthenticated,
+        actions: [create]
+    )
+
+    @permission(
         roles: [Sailors],
         actions: [get, update, delete, list]
     )
