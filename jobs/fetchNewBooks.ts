@@ -24,7 +24,6 @@ const SearchISBN = async (book) => {
 	const handler = (response) => {
 		const res = response;
 		if(res.items.length > 0) {
-			
 
 			models.book.update({id: book.id},{	
 				title: res.items[0].volumeInfo.title,
@@ -32,7 +31,6 @@ const SearchISBN = async (book) => {
 			});
 		} 
 	};
-
 
 	const data = await fetch(books_endpoint, {
 		method: "GET",
