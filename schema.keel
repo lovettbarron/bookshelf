@@ -50,6 +50,10 @@ model Book {
         }
     }
 
+    functions {
+        create createWithMagic() with (isbn)
+    }
+
     @permission(
         expression: ctx.isAuthenticated,
         actions: [create]
@@ -57,7 +61,7 @@ model Book {
 
     @permission(
         roles: [Sailors],
-        actions: [get, update, delete, list]
+        actions: [get, update, delete, list, create]
     )
 }
 
