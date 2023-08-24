@@ -1,4 +1,50 @@
-var isValidIsbn = function (str) {
+const client = new APIClient({
+  config: { endpoint: "https://myproject.keelapps.xyz/web/" },
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const input = document.querySelector("input");
+  const log = document.getElementById("values");
+  input.focus();
+
+  logintime();
+
+  input.addEventListener("input", checkISBN);
+});
+
+const checkISBN = (e) => {
+  console.log(
+    document.querySelector("input").value,
+    isValidIsbn(document.querySelector("input").value)
+  );
+  if (isValidIsbn(document.querySelector("input").value)) {
+    console.log("Sending isbn off to be stored");
+
+    document.querySelector("input").value = "";
+  }
+};
+
+const logintime = async () => {
+  console.log(client);
+  const auth = await client.actions.authenticate({
+    emailPassword: {
+      email: "andrew@keel.xyz",
+      password: "tester",
+    },
+    createIfNotExists: true,
+  });
+
+  if (auth.error) {
+    console.log("Auth failed", auth.error.type);
+    return;
+  }
+
+  client._setToken(auth.data.token);
+
+  console.log("Authenticated");
+};
+
+const isValidIsbn = (str) => {
   var sum, weight, digit, check, i;
 
   str = str.replace(/[^0-9X]/gi, "");
@@ -36,23 +82,3 @@ var isValidIsbn = function (str) {
     return check == str[str.length - 1].toUpperCase();
   }
 };
-
-document.addEventListener("DOMContentLoaded", function () {
-  const input = document.querySelector("input");
-  const log = document.getElementById("values");
-  input.focus();
-
-  input.addEventListener("input", checkISBN);
-});
-
-function checkISBN(e) {
-  console.log(
-    document.querySelector("input").value,
-    isValidIsbn(document.querySelector("input").value)
-  );
-  if (isValidIsbn(document.querySelector("input").value)) {
-    console.log("Sending isbn off to be stored");
-
-    document.querySelector("input").value = "";
-  }
-}

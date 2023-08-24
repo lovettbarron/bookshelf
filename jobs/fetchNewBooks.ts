@@ -12,7 +12,6 @@ export default FetchNewBooks(async (ctx) => {
 		
 	}
 
-    return empty_books
 
 });
 
