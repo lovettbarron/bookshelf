@@ -33,7 +33,7 @@ model Book {
         list allBooks()
         delete deleteBook(id)
         update updateBook(id) with (isbn?, author.id?, published?, name?)
-        create createBook() with (isbn, author.id?, published, name?) {
+        create createBook() with (isbn, author.id?, published?, name?) {
             @set(book.owner = ctx.identity)
         }
     }
