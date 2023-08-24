@@ -22,11 +22,14 @@ const SearchISBN = async (isbn) => {
 
 	const handler = (response) => {
 		const res = response;
-		return {	
-			name: res.name,
-			author:res.author,
-			published: res.published
-		};
+		if(res.items.length > 0) {
+
+			return {	
+				name: res.items[0].title,
+				author:res.author,
+				published: res.published
+			};
+		}
 	};
 
 
