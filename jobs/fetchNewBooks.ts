@@ -2,7 +2,7 @@ import { FetchNewBooks, models } from '@teamkeel/sdk';
 import fetch from "node-fetch";
 export default FetchNewBooks(async (ctx) => {
 
-	const empty_books = await models.book.findMany({where: { name: null }	})
+	const empty_books = await models.book.findMany({where: { title: null }	})
 	
 	if(empty_books.length > 0) {
 
@@ -25,21 +25,22 @@ const SearchISBN = async (isbn) => {
 		if(res.items.length > 0) {
 
 			return {	
-				name: res.items[0].title,
+				title: res.items[0].title,
 				author:res.author,
 				published: res.published
 			};
+		} else {
+			return { }
 		}
 	};
 
 
 	const data = await fetch(books_endpoint, {
-		method: "POST",
-		body: JSON.stringify({ name: "Simon" }),
+		method: "GET",
 	}).then((res) => handler(res));
 
 	return {
-		name: data.name,
+		title: data.title,
 		author:data.author,
 		published: data.published
 
