@@ -23,7 +23,7 @@ enum Region {
 
 job FetchNewBooks {
     @schedule("*/5 * * * *")
-    @permission([Sailors])
+    @permission(roles: [Sailors])
 }
 
 model Book {
