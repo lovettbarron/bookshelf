@@ -1,3 +1,9 @@
+role Sailors {
+    domains {
+        "keel.xyz"
+    }
+}
+
 enum Gender {
     Male
     Female
@@ -29,14 +35,23 @@ model Book {
     }
 
     operations {
-        get book(id)
-        list allBooks()
+        get book(id) {
+            @permission(expression: true)
+        }
+        list allBooks() {
+            @permission(expression: true)
+        }
         delete deleteBook(id)
         update updateBook(id) with (isbn?, author.id?, published?, name?)
         create createBook() with (isbn, author.id?, published?, name?) {
             @set(book.owner = ctx.identity)
         }
     }
+
+    @permission(
+        roles: [Sailors],
+        actions: [get, update, delete, list]
+    )
 }
 
 model Author {
