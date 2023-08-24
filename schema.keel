@@ -28,10 +28,17 @@ model Book {
         get book(id)
         list allBooks()
         delete deleteBook(id)
-        update updateBook(id) with (isbn?, author.id?, published, name?)
-        create createBook() with (isbn, author.id?, published, name?) {
+        update updateBook(id) with (isbn?, author.id?, published?, name?)
+        create createBook() with (isbn, author.id?, published?, name?) {
             @set(book.owner = ctx.identity)
         }
+    }
+
+    functions {
+        job fetchNewBooks {
+            @schedule("0 0 7 ? * 1,2,3,4 *")
+            @schedule("0 6 * * 5")
+            }
     }
 }
 
