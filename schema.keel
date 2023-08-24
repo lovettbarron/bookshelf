@@ -27,7 +27,7 @@ job FetchNewBooks {
 
 model Book {
     fields {
-        isbn Number
+        isbn Text
         title Text?
         author Author?
         published Date?
@@ -42,8 +42,8 @@ model Book {
             @permission(expression: true)
         }
         delete deleteBook(id)
-        update updateBook(id) with (isbn?, author.id?, published?, title?)
-        create createBook() with (isbn, author.id?, published?, title?) {
+        update updateBook(id) with (isbn?, author.id?, published?, name?)
+        create createBook() with (isbn, author.id?, published?, name?) {
             @set(book.owner = ctx.identity)
         }
     }

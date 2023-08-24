@@ -4,7 +4,7 @@ import { test, expect, beforeEach } from "vitest";
  
 beforeEach(resetDatabase);
  
-test("Test FetchNewBooks updates new customer flag", async () => {
+test("Test FetchNewBooks updates", async () => {
   console.log("Test start")
  
   await jobs.fetchNewBooks();
