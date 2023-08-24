@@ -21,7 +21,7 @@ model Book {
         name Text?
         author Author?
         published Date?
-        rc Identity
+        owner Identity
     }
 
     operations {
