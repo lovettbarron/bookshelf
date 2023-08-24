@@ -1,3 +1,20 @@
+enum Gender {
+    Male
+    Female
+    Nonbinary
+    Other
+}
+
+enum Region {
+    Asia
+    Americas
+    Africa
+    Mena
+    Europe
+    Poles
+    Oceania
+}
+
 model Book {
     fields {
         isbn8 Text
@@ -5,5 +22,14 @@ model Book {
         name Text
         author Author
         published Date
+    }
+}
+
+model Author {
+    fields {
+        givenname Text
+        surname Text
+        gender Gender
+        region Region
     }
 }
