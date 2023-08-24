@@ -27,7 +27,7 @@ job FetchNewBooks {
 
 model Book {
     fields {
-        isbn Text
+        isbn Number
         name Text?
         author Author?
         published Date?
