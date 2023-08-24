@@ -25,9 +25,9 @@ const SearchISBN = async (isbn) => {
 		if(res.items.length > 0) {
 
 			return {	
-				title: res.items[0].title,
-				author:res.author,
-				published: res.published
+				title: res.items[0].volumeInfo.title,
+				author:res.items[0].volumeInfo.authors[0],
+				published: res.items[0].volumeInfo.publishedDate
 			};
 		} else {
 			return { }
