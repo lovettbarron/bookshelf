@@ -8,6 +8,8 @@ export default FetchNewBooks(async (ctx) => {
 
 		for (const [key, value] of Object.entries(empty_books)) {
 			console.log(`${key}: ${value}`);
+			SearchISBN(value)
+
 		}
 		
 	}
@@ -15,22 +17,19 @@ export default FetchNewBooks(async (ctx) => {
 
 });
 
-const SearchISBN = async (isbn) => {
+const SearchISBN = async (book) => {
 	const books_api_key = "AIzaSyA_9-GbYiVfbwRJEmDwXC8QY-S3OW-k9to"
-	const books_endpoint = `https://www.googleapis.com/books/v1/volumes?q=isbn+` + isbn
+	const books_endpoint = `https://www.googleapis.com/books/v1/volumes?q=isbn+` + book.isbn
 
 	const handler = (response) => {
 		const res = response;
 		if(res.items.length > 0) {
 
-			return {	
+			models.book.update({id:book.id},{	
 				title: res.items[0].volumeInfo.title,
-				author:res.items[0].volumeInfo.authors[0],
 				published: res.items[0].volumeInfo.publishedDate
-			};
-		} else {
-			return { }
-		}
+			});
+		} 
 	};
 
 
@@ -38,10 +37,4 @@ const SearchISBN = async (isbn) => {
 		method: "GET",
 	}).then((res) => handler(res));
 
-	return {
-		title: data.title,
-		author:data.author,
-		published: data.published
-
-	}
 }
