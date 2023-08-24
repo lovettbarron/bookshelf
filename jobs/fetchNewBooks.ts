@@ -24,8 +24,9 @@ const SearchISBN = async (book) => {
 	const handler = (response) => {
 		const res = response;
 		if(res.items.length > 0) {
+			
 
-			models.book.update({id:book.id},{	
+			models.book.update({id: book.id},{	
 				title: res.items[0].volumeInfo.title,
 				published: res.items[0].volumeInfo.publishedDate
 			});
