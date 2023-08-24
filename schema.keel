@@ -23,7 +23,7 @@ enum Region {
 
 job FetchNewBooks {
     @schedule("*/5 * * * *")
-    @permission(roles: [Sailors])
+    @permission(true)
 }
 
 model Book {
@@ -44,8 +44,9 @@ model Book {
         }
         delete deleteBook(id)
         update updateBook(id) with (isbn?, author.id?, published?, title?)
-        create createBook() with (isbn, author.id?, published?, title?) {
+        create createBook() with (i sbn, author.id?, published?, title?) {
             @set(book.owner = ctx.identity)
+            @permission(expression: true)
         }
     }
 
