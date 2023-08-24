@@ -15,6 +15,10 @@ enum Region {
     Oceania
 }
 
+job FetchNewBooks {
+    @schedule("*/5 * * * *")
+}
+
 model Book {
     fields {
         isbn Text
@@ -29,16 +33,9 @@ model Book {
         list allBooks()
         delete deleteBook(id)
         update updateBook(id) with (isbn?, author.id?, published?, name?)
-        create createBook() with (isbn, author.id?, published?, name?) {
+        create createBook() with (isbn, author.id?, published, name?) {
             @set(book.owner = ctx.identity)
         }
-    }
-
-    functions {
-        job fetchNewBooks {
-            @schedule("0 0 7 ? * 1,2,3,4 *")
-            @schedule("0 6 * * 5")
-            }
     }
 }
 
