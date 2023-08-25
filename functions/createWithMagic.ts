@@ -1,5 +1,5 @@
 import { CreateWithMagic, models } from '@teamkeel/sdk';
-import { Book, BookInput } from '../client/keelClient';
+import { Book, BookInput } from '../keelClient';
 import fetch from "node-fetch";
 
 
@@ -30,13 +30,13 @@ const SearchISBN = (async (book) => {
 	if(res && res.totalItems > 0) {
 		console.log("you get a book!")
 		return({
-			isbn: book,
-			title: res.items[0].volumeInfo.title,
-			author: res.items[0].volumeInfo.authors[0],
-			published: res.items[0].volumeInfo.publishedDate
+			isbn: <string>book,
+			title: <string>res.items[0].volumeInfo.title,
+			author: <string>res.items[0].volumeInfo.authors[0],
+			published: <string>res.items[0].volumeInfo.publishedDate
 		});
 	} 
 	console.log("Nada")
-	return({isbn:book})
+	return({isbn: <string>book})
 
 	});

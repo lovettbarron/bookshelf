@@ -258,6 +258,9 @@ export class APIClient extends Core {
         createBook : (i: CreateBookInput) => {
             return this.client.rawRequest<Book>("createBook", i);
         },
+        createWithMagic : (i: CreateWithMagicInput) => {
+            return this.client.rawRequest<Book>("createWithMagic", i);
+        },
         authenticate : (i: AuthenticateInput) => {
             return this.client.rawRequest<AuthenticateResponse>("authenticate", i).then((res) => {
               if (res.data && res.data.token) this.client.setToken(res.data.token);
@@ -281,6 +284,7 @@ export class APIClient extends Core {
             deleteBook: this.actions.deleteBook.bind(this),
             updateBook: this.actions.updateBook.bind(this),
             createBook: this.actions.createBook.bind(this),
+            createWithMagic: this.actions.createWithMagic.bind(this),
             authenticate: this.actions.authenticate.bind(this),
             requestPasswordReset: this.actions.requestPasswordReset.bind(this),
             resetPassword: this.actions.resetPassword.bind(this),
@@ -310,26 +314,23 @@ export interface UpdateBookWhere {
     id: string;
 }
 export interface UpdateBookValues {
-    isbn?: number;
-    author?: UpdateBookAuthorInput | null;
+    isbn?: string;
+    author?: string | null;
     published?: Date | null;
     title?: string | null;
-}
-export interface UpdateBookAuthorInput {
-    id?: string | null;
 }
 export interface UpdateBookInput {
     where: UpdateBookWhere;
     values?: UpdateBookValues;
 }
 export interface CreateBookInput {
-    isbn: number;
-    author?: CreateBookAuthorInput | null;
+    isbn: string;
+    author?: string | null;
     published?: Date | null;
     title?: string | null;
 }
-export interface CreateBookAuthorInput {
-    id?: string | null;
+export interface CreateWithMagicInput {
+    isbn: string;
 }
 export interface EmailPasswordInput {
     email: string;
@@ -379,23 +380,14 @@ export interface RegionWhereCondition {
     oneOf?: Region[] | null;
 }
 export interface Book {
-    isbn: number
+    isbn: string
     title: string | null
+    author: string | null
     published: Date | null
     id: string
     createdAt: Date
     updatedAt: Date
-    authorId: string | null
-    ownerId: string
-}
-export interface Author {
-    givenname: string
-    surname: string
-    gender: Gender
-    region: Region
-    id: string
-    createdAt: Date
-    updatedAt: Date
+    ownerId: string | null
 }
 export interface Identity {
     email: string | null
