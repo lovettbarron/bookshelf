@@ -15,7 +15,7 @@ export default CreateWithMagic(async (ctx, inputs) => {
 const SearchISBN = (async (book) => {
 	const books_endpoint = `https://www.googleapis.com/books/v1/volumes?q=isbn+` + (<string>book)
 	
-	await fetch(`${books_endpoint}`, { 
+	const response = await fetch(`${books_endpoint}`, { 
 		method: 'GET',
 		headers:{
 		  'Access-Control-Allow-Origin': '*',
@@ -23,21 +23,20 @@ const SearchISBN = (async (book) => {
 		  'Access-Control-Allow-Methods':'POST, GET'
 		}
 	  })
-	  .then(response => 		
-		{
- 
-			const res = (<any>response.body)
-			console.log(res)
 
-			if(res && res.totalItems > 0) {
-				return({
-					isbn: book,
-					title: res.items[0].volumeInfo.title,
-					author: res.items[0].volumeInfo.authors[0],
-					published: res.items[0].volumeInfo.publishedDate
-				});
-			} 
-		})
-		return({isbn:book})
+	const res = await (<any>response.json())
+	console.log(res)
+
+	if(res && res.totalItems > 0) {
+		console.log("you get a book!")
+		return({
+			isbn: book,
+			title: res.items[0].volumeInfo.title,
+			author: res.items[0].volumeInfo.authors[0],
+			published: res.items[0].volumeInfo.publishedDate
+		});
+	} 
+	console.log("Nada")
+	return({isbn:book})
 
 	});
