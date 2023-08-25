@@ -22,7 +22,7 @@ enum Region {
 }
 
 job FetchNewBooks {
-    @schedule("*/5 * * * *")
+    // @schedule("*/5 * * * *")
     @permission(roles: [Sailors])
 }
 
@@ -51,7 +51,9 @@ model Book {
     }
 
     functions {
-        create createWithMagic() with (isbn)
+        create createWithMagic() with (isbn) {
+            @permission(expression: true)
+        }
     }
 
     @permission(
