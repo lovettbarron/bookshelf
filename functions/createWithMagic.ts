@@ -33,7 +33,7 @@ const SearchISBN = (async (book) => {
 			isbn: <string>book,
 			title: <string>res.items[0].volumeInfo.title,
 			author: <string>res.items[0].volumeInfo.authors[0],
-			published: <string>res.items[0].volumeInfo.publishedDate
+			// published: <string>res.items[0].volumeInfo.publishedDate
 		});
 	} 
 	console.log("Nada")
