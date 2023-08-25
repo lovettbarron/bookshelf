@@ -1,16 +1,19 @@
 import { CreateWithMagic, models } from '@teamkeel/sdk';
 import { Book, BookInput } from '../client/keelClient';
+import fetch from "node-fetch";
+
 
 export default CreateWithMagic(async (ctx, inputs) => {
 
-	const book_input = await SearchISBN(inputs.isbn)
+	const book = await SearchISBN(inputs.isbn)
 
-	const book = await models.book.create(book_input);
-	return book;
+	// const book = await models.book.create(book_input);
+	console.log(book)
+	inputs = Object.assign(inputs, book)
+	return models.book.create(inputs);
 });
 	
 const SearchISBN = (async (book) => {
-	const books_api_key = "AIzaSyA_9-GbYiVfbwRJEmDwXC8QY-S3OW-k9to"
 	const books_endpoint = `https://www.googleapis.com/books/v1/volumes?q=isbn+` + book
 	
 	await fetch(`${books_endpoint}`, { 
@@ -24,10 +27,11 @@ const SearchISBN = (async (book) => {
 	  .then(response => 		
 		{
 			if(response.items.length > 0) {
-	   console.log(response.items)
+	 			console.log(response.items)
 				return({
 					isbn: book,
 					title: response.items[0].volumeInfo.title,
+					author: response.items[0].volumeInfo.authors[0],
 					published: response.items[0].volumeInfo.publishedDate
 				});
 			} else {
