@@ -58,7 +58,7 @@ model Book {
 
     @permission(
         expression: ctx.isAuthenticated,
-        actions: [create]
+        actions: [create, delete]
     )
 
     @permission(
