@@ -35,7 +35,7 @@ model Book {
         owner Identity?
     }
 
-    operations {
+    actions {
         get book(id) {
             @permission(expression: true)
         }
@@ -48,10 +48,8 @@ model Book {
             @set(book.owner = ctx.identity)
             @permission(expression: true)
         }
-    }
-
-    functions {
         create createWithMagic() with (isbn) {
+            @function
             @permission(expression: true)
         }
     }

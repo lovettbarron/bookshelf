@@ -1,5 +1,5 @@
-import { handleRequest, handleJob, tracing } from '@teamkeel/functions-runtime';
-import { createContextAPI, createJobContextAPI, permissionFns } from '@teamkeel/sdk';
+import { handleRequest, handleJob, handleSubscriber, tracing } from '@teamkeel/functions-runtime';
+import { createContextAPI, createJobContextAPI, createSubscriberContextAPI, permissionFns } from '@teamkeel/sdk';
 import { createServer } from "http";
 import function_createWithMagic from "../functions/createWithMagic.ts";
 import job_fetchNewBooks from "../jobs/fetchNewBooks.ts";
@@ -9,8 +9,10 @@ const functions = {
 const jobs = {
     fetchNewBooks: job_fetchNewBooks,
 }
+const subscribers = {
+}
 const actionTypes = {
-    createWithMagic: "OPERATION_TYPE_CREATE",
+    createWithMagic: "ACTION_TYPE_CREATE",
 }
 
 const listener = async (req, res) => {
@@ -43,6 +45,12 @@ const listener = async (req, res) => {
 			rpcResponse = await handleJob(json, {
 				jobs,
 				createJobContextAPI,
+			});
+			break;
+		case "subscriber":
+			rpcResponse = await handleSubscriber(json, {
+				subscribers,
+				createSubscriberContextAPI,
 			});
 			break;
 		default:
