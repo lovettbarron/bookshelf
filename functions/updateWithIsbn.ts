@@ -7,11 +7,11 @@ import fetch from "node-fetch";
 // visit https://docs.keel.so/functions
 const hooks : UpdateWithIsbnHooks = {
 
-	beforeWrite: async (ctx, inputs, where) => {
+	beforeWrite: async (ctx, inputs) => {
 
-        console.log(where.id)
+        console.log(inputs)
         const booktoupdate = await models.book.findOne({
-            id: where.id,
+            id: inputs.where.id,
           });
           var bookobj = {};
         if(booktoupdate) {
