@@ -9,9 +9,9 @@ const hooks : UpdateWithIsbnHooks = {
 
 	beforeWrite: async (ctx, inputs, where) => {
 
- console.log(where)
+        console.log(where.id)
         const booktoupdate = await models.book.findOne({
-            id: <string>where,
+            id: where.id,
           });
           var bookobj = {};
         if(booktoupdate) {
