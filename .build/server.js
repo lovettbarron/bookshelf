@@ -2,9 +2,11 @@ import { handleRequest, handleJob, handleSubscriber, tracing } from '@teamkeel/f
 import { createContextAPI, createJobContextAPI, createSubscriberContextAPI, permissionFns } from '@teamkeel/sdk';
 import { createServer } from "http";
 import function_createWithMagic from "../functions/createWithMagic.ts";
+import function_updateWithIsbn from "../functions/updateWithIsbn.ts";
 import job_fetchNewBooks from "../jobs/fetchNewBooks.ts";
 const functions = {
     createWithMagic: function_createWithMagic,
+    updateWithIsbn: function_updateWithIsbn,
 }
 const jobs = {
     fetchNewBooks: job_fetchNewBooks,
@@ -13,6 +15,7 @@ const subscribers = {
 }
 const actionTypes = {
     createWithMagic: "ACTION_TYPE_CREATE",
+    updateWithIsbn: "ACTION_TYPE_UPDATE",
 }
 
 const listener = async (req, res) => {

@@ -52,6 +52,10 @@ model Book {
             @function
             @permission(expression: true)
         }
+        update updateWithIsbn(id) {
+            @function
+            @permission(expression: true)
+        }
     }
 
     @permission(
