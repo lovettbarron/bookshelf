@@ -14,7 +14,7 @@ const hooks : UpdateWithIsbnHooks = {
             id: inputs.id,
           });
 
-		const bookobj = await SearchISBN(inputs.isbn)
+		const bookobj = await SearchISBN(book.isbn)
 
 		return {
 		  ...inputs,
