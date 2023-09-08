@@ -3,13 +3,18 @@ import { Book, BookInput } from '../keelClient';
 import fetch from "node-fetch";
 
 
-export default CreateWithMagic(async (ctx, inputs) => {
+export default CreateWithMagic({
 
-	const bookobj = await SearchISBN(inputs.isbn)
+	beforeWrite: async (ctx, inputs) => {
+		const bookobj = await SearchISBN(inputs.isbn)
 
-	console.log(bookobj)
-	inputs = Object.assign(inputs, bookobj);
-	return models.book.create(inputs);
+		return {
+		  ...inputs,
+		  ...bookobj
+		}
+	  }
+
+	// return models.book.create(inputs);
 });
 	
 const SearchISBN = (async (book) => {
