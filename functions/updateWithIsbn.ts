@@ -19,7 +19,7 @@ const hooks : UpdateWithIsbnHooks = {
         }
 
 		return {
-		  ...inputs,
+		  ...inputs.values,
 		  ...bookobj
 		}
 	  }
